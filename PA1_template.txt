@@ -1,14 +1,10 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 
-```{r}
+
+```r
 activity <- read.csv(unz('activity.zip','activity.csv') , 
                      stringsAsFactors=FALSE)
 activity$date <- as.Date(activity$date, format="%Y-%m-%d")
@@ -16,29 +12,34 @@ activity$date <- as.Date(activity$date, format="%Y-%m-%d")
 
 ## What is mean total number of steps taken per day?
 
-```{r} 
+
+```r
 daily <- tapply(activity$steps, activity$date, mean, na.rm=TRUE)
 mean_daily_steps <- mean(daily, na.rm=TRUE)
 median_daily_steps <- median(daily, na.rm=TRUE)
 barplot(daily)
 ```
 
-The mean steps are `r mean_daily_steps` and the median `r median_daily_steps`.
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
+The mean steps are 37.3825996 and the median 37.3784722.
 
 ## What is the average daily activity pattern?
 
-```{r}
+
+```r
 mean_interval_steps <- tapply(activity$steps, activity$interval, mean, na.rm=TRUE)
 plot(x=as.numeric(names(mean_interval_steps)), y=mean_interval_steps, type="l", ylab="steps", xlab="interval")
-
-
 ```
 
-The interval with the maximum activity is `r names(mean_interval_steps)[which.max(mean_interval_steps)]`.
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
+The interval with the maximum activity is 104.
 
 ## Imputing missing values
 
-```{r}
+
+```r
 activity <- read.csv(unz('activity.zip','activity.csv') , 
                      stringsAsFactors=FALSE)
 activity$date <- as.Date(activity$date, format="%Y-%m-%d")
@@ -60,17 +61,18 @@ daily <- tapply(activity$steps, activity$date, mean, na.rm=TRUE)
 mean_daily_steps <- mean(daily)
 median_daily_steps <- median(daily)
 barplot(daily)
-
 ```
 
-The mean steps are `r mean_daily_steps` and the median `r median_daily_steps`.
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+The mean steps are 37.3825996 and the median 37.3825996.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 He walks more during weekends.
 
-```{r}
 
+```r
 # Weekdays uses the locale name so I use variables to refere it, change it here if necesary
 
 saturday <- "sábado"
@@ -92,6 +94,7 @@ plot(x=as.numeric(names(mean_interval_steps)), y=mean_interval_steps, type="l", 
 activity_weekday <- subset(activity, weekend == "weekday")
 mean_interval_steps <- tapply(activity_weekday$steps, activity_weekday$interval, mean, na.rm=TRUE)
 plot(x=as.numeric(names(mean_interval_steps)), y=mean_interval_steps, type="l", ylab="steps", xlab="interval", main="Weekdays")
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 

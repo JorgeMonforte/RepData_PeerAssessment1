@@ -34,7 +34,7 @@ plot(x=as.numeric(names(mean_interval_steps)), y=mean_interval_steps, type="l", 
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
-The interval with the maximum activity is 104.
+The interval with the maximum activity is 835.
 
 ## Imputing missing values
 
